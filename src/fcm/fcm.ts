@@ -58,8 +58,8 @@ export function sendFcmMessage(params: FCMMessageParams): Promise<JSONObject> {
         console.log(data);
 
         resolve({
-          payload: message as unknown as JSONObject,
           response: JSON.parse(data),
+          payload: message as unknown as JSONObject,
         });
       });
     });
@@ -72,6 +72,7 @@ export function sendFcmMessage(params: FCMMessageParams): Promise<JSONObject> {
 
     req.write(
       JSON.stringify({
+        validate_only: params.validate_only,
         message: message,
       })
     );

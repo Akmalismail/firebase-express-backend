@@ -11,6 +11,7 @@ export interface FCMMessageParams {
   token: string;
   notification?: boolean;
   data?: boolean;
+  validate_only?: boolean;
   androidPriority?: 'high' | 'normal',
   iosPriority?: 'high' | 'normal'
 }
