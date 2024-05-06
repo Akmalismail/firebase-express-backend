@@ -89,6 +89,18 @@ function buildFcmMessage(params: FCMMessageParams): Message {
 
   if (data) {
     message.data = buildData();
+
+    if (message.apns?.payload?.aps) {
+      message.apns.payload.aps.contentAvailable = true;
+    } else {
+      message.apns = {
+        payload: {
+          aps: {
+            contentAvailable: true,
+          },
+        },
+      };
+    }
   }
 
   if (notification) {
@@ -102,11 +114,17 @@ function buildFcmMessage(params: FCMMessageParams): Message {
   }
 
   if (iosPriority) {
-    message.apns = {
-      headers: {
-        "apns-priority": iosPriority == "high" ? "5" : "10",
-      },
+    const headers = {
+      "apns-priority": iosPriority == "high" ? "5" : "10",
     };
+
+    if (message.apns?.headers) {
+      message.apns.headers = headers;
+    } else {
+      message.apns = {
+        headers: headers,
+      };
+    }
   }
 
   console.log(message);
