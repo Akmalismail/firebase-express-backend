@@ -10,12 +10,16 @@ export interface JSONArray extends Array<JSONValue> {}
 export interface FCMMessageParams {
   token: string;
   notification?: boolean;
-  data?: boolean;
+  data?:
+    | boolean
+    | {
+        [key: string]: string;
+      };
   validate_only?: boolean;
-  androidPriority?: 'high' | 'normal',
-  iosPriority?: 'high' | 'normal'
+  androidPriority?: "high" | "normal";
+  iosPriority?: "high" | "normal";
 }
 
 export interface INotificaion extends Notification {
-  image: string,
+  image: string;
 }
