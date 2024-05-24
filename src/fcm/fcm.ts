@@ -89,18 +89,6 @@ function buildFcmMessage(params: FCMMessageParams): Message {
 
   if (data) {
     message.data = typeof data === 'boolean' ? buildData() : data;
-
-    if (message.apns?.payload?.aps) {
-      message.apns.payload.aps.contentAvailable = true;
-    } else {
-      message.apns = {
-        payload: {
-          aps: {
-            contentAvailable: true,
-          },
-        },
-      };
-    }
   }
 
   if (notification) {
