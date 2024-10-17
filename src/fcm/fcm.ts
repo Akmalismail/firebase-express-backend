@@ -88,11 +88,18 @@ function buildFcmMessage(params: FCMMessageParams): Message {
   };
 
   if (data) {
-    message.data = typeof data === 'boolean' ? buildData() : data;
+    message.data = typeof data === "boolean" ? buildData() : data;
+
+    for (let field in message.data) {
+      if (typeof message.data[field] == "object") {
+        message.data[field] = JSON.stringify(message.data[field]);
+      }
+    }
   }
 
   if (notification) {
-    message.notification = buildNotification();
+    message.notification =
+      typeof notification === "boolean" ? buildNotification() : notification;
   }
 
   if (androidPriority) {
